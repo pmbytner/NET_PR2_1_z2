@@ -30,7 +30,10 @@
         <Label>Imię</Label>
         <TextBox
             Grid.Column="1"
-            Text="{Binding Path=Imię}"
+            Text="{Binding
+                Path=Imię,
+                UpdateSourceTrigger=PropertyChanged
+            }"
             />
         <Button
             Grid.Row="1"
@@ -41,6 +44,52 @@
             Grid.Column="1"
             Grid.Row="1"
             Text="{Binding Path=Imię}"
+            />
+
+
+        <Label
+            Grid.Row="2"
+            >TwoWay</Label>
+        <TextBox
+            Grid.Column="1"
+            Grid.Row="2"
+            Text="{Binding
+                Path=Imię,
+                Mode=TwoWay
+            }"
+            />
+        <Label
+            Grid.Row="3"
+            >OneWay</Label>
+        <TextBox
+            Grid.Column="1"
+            Grid.Row="3"
+            Text="{Binding
+                Path=Imię,
+                Mode=OneWay
+            }"
+            />
+        <Label
+            Grid.Row="4"
+            >OneTime</Label>
+        <TextBox
+            Grid.Column="1"
+            Grid.Row="4"
+            Text="{Binding
+                Path=Imię,
+                Mode=OneTime
+            }"
+            />
+        <Label
+            Grid.Row="5"
+            >OneWayToSource</Label>
+        <TextBox
+            Grid.Column="1"
+            Grid.Row="5"
+            Text="{Binding
+                Path=Imię,
+                Mode=OneWayToSource
+            }"
             />
     </Grid>
 </Window>
