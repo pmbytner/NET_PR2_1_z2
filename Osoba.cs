@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,28 @@ namespace NET_PR2_1_z2
     public class Osoba : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        private static Dictionary<string,ICollection<string>> powiązaneWłaściwości
+            = new()
+            {
+                ["Imię"] = new string[] { "ImięNazwisko", "FormatWitaj" },
+                ["Nazwisko"] = new string[] { "ImięNazwisko", "FormatWitaj" }
+            };
+        private void NotyfikujZmianę([CallerMemberName] string? nazwaWłaściwości = null)
+        {
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nazwaWłaściwości)
+                );
+            foreach(
+                string powiązanaWłaściwość
+                in
+                powiązaneWłaściwości[nazwaWłaściwości]
+                )
+                PropertyChanged?.Invoke(
+                    this,
+                    new PropertyChangedEventArgs(powiązanaWłaściwość)
+                    );
+        }
 
         private string imię;
         private string nazwisko;
@@ -19,8 +42,7 @@ namespace NET_PR2_1_z2
             set
             {
                 imię = value;
-                PropertyChanged?.Invoke(this, new("Imię"));
-                PropertyChanged?.Invoke(this, new("ImięNazwisko"));
+                NotyfikujZmianę();
             }
         }
         public string Nazwisko {
@@ -28,11 +50,10 @@ namespace NET_PR2_1_z2
             set
             {
                 nazwisko = value;
-                PropertyChanged?.Invoke(this, new("Nazwisko"));
-                PropertyChanged?.Invoke(this, new("ImięNazwisko"));
+                NotyfikujZmianę();
             }
         }
         public string ImięNazwisko => $"{imię} {nazwisko}";
-
+        public string FormatWitaj => $"Witaj, {ImięNazwisko}!";
     }
 }

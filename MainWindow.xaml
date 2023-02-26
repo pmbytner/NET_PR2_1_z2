@@ -75,5 +75,10 @@
             Grid.Row="4"
             Text="{Binding Nazwisko}"
             />
+        <TextBlock
+            Grid.ColumnSpan="2"
+            Grid.Row="5"
+            Text="{Binding FormatWitaj}"
+            />
     </Grid>
 </Window>
