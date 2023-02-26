@@ -18,14 +18,12 @@ namespace NET_PR2_1_z2
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WidokOsoby : Window
     {
-        Osoba osoba = new Osoba() {
-            Imię = "Julian",
-            Nazwisko = "Król"
-        };
-        public MainWindow()
+        //Osoba osoba;
+        public WidokOsoby(Osoba osoba)
         {
+            //this.osoba = osoba;
             DataContext = osoba;
             InitializeComponent();
         }

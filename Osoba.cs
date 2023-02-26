@@ -16,9 +16,10 @@ namespace NET_PR2_1_z2
             {
                 ["Imię"] = new string[] { "ImięNazwisko" },
                 ["Nazwisko"] = new string[] { "ImięNazwisko" },
-                ["ImięNazwisko"] = new string[] { "FormatWitaj" },
+                ["ImięNazwisko"] = new string[] { "FormatWitaj", "SkrótSzczegółów" },
                 ["DataUrodzenia"] = new string[] { "Wiek" },
-                ["DataŚmierci"] = new string[] { "Wiek" }
+                ["DataŚmierci"] = new string[] { "Wiek" },
+                ["Wiek"] = new string[] { "SkrótSzczegółów" }
             };
         private void NotyfikujZmianę(
             [CallerMemberName] string? nazwaWłaściwości = null,
@@ -101,5 +102,6 @@ namespace NET_PR2_1_z2
                 return (ushort?)Math.Floor(różnica.Days / 365.25);
             }
         }
+        public string SkrótSzczegółów => $"{ImięNazwisko}, {Wiek} lat";
     }
 }
