@@ -16,7 +16,9 @@ namespace NET_PR2_1_z2
             {
                 ["Imię"] = new string[] { "ImięNazwisko" },
                 ["Nazwisko"] = new string[] { "ImięNazwisko" },
-                ["ImięNazwisko"] = new string[] { "FormatWitaj" }
+                ["ImięNazwisko"] = new string[] { "FormatWitaj" },
+                ["DataUrodzenia"] = new string[] { "Wiek" },
+                ["DataŚmierci"] = new string[] { "Wiek" }
             };
         private void NotyfikujZmianę(
             [CallerMemberName] string? nazwaWłaściwości = null,
@@ -40,8 +42,14 @@ namespace NET_PR2_1_z2
                         NotyfikujZmianę(powiązanaWłaściwość, jużZałatwione);
         }
 
-        private string imię;
-        private string nazwisko;
+        private string
+            imię,
+            nazwisko
+            ;
+        private DateTime?
+            dataUrodzenia,
+            dataŚmierci
+            ;
 
         public string Imię {
             get => imię;
@@ -59,7 +67,39 @@ namespace NET_PR2_1_z2
                 NotyfikujZmianę();
             }
         }
+        public DateTime? DataUrodzenia {
+            get => dataUrodzenia;
+            set
+            {
+                dataUrodzenia = value;
+                NotyfikujZmianę();
+            }
+        }
+        public DateTime? DataŚmierci {
+            get => dataŚmierci;
+            set
+            {
+                dataŚmierci = value;
+                NotyfikujZmianę();
+            }
+        }
+        
         public string ImięNazwisko => $"{imię} {nazwisko}";
         public string FormatWitaj => $"Witaj, {ImięNazwisko}!";
+        public ushort? Wiek
+        {
+            get
+            {
+                if (dataUrodzenia == null)
+                    return null;
+                DateTime? koniec;
+                if (dataŚmierci == null)
+                    koniec = DateTime.Now;
+                else
+                    koniec = dataŚmierci;
+                TimeSpan różnica = (TimeSpan)(koniec - dataUrodzenia);
+                return (ushort?)Math.Floor(różnica.Days / 365.25);
+            }
+        }
     }
 }

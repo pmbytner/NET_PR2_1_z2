@@ -57,28 +57,27 @@
 
         <Label
             Grid.Row="3"
-            >
-            Też imię:
-        </Label>
-        <TextBlock
+            >Data urodzenia</Label>
+        <DatePicker
             Grid.Column="1"
             Grid.Row="3"
-            Text="{Binding Imię}"
+            SelectedDate="{Binding DataUrodzenia}"
             />
         <Label
             Grid.Row="4"
-            >
-            Też nazwisko:
-        </Label>
-        <TextBlock
+            >Data śmierci</Label>
+        <DatePicker
             Grid.Column="1"
             Grid.Row="4"
-            Text="{Binding Nazwisko}"
+            SelectedDate="{Binding DataŚmierci}"
             />
-        <TextBlock
-            Grid.ColumnSpan="2"
+        <Label
             Grid.Row="5"
-            Text="{Binding FormatWitaj}"
+            >Wiek</Label>
+        <TextBlock
+            Grid.Column="1"
+            Grid.Row="5"
+            Text="{Binding Wiek}"
             />
     </Grid>
 </Window>
