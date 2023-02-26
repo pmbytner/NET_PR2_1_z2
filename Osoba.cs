@@ -14,24 +14,30 @@ namespace NET_PR2_1_z2
         private static Dictionary<string,ICollection<string>> powiązaneWłaściwości
             = new()
             {
-                ["Imię"] = new string[] { "ImięNazwisko", "FormatWitaj" },
-                ["Nazwisko"] = new string[] { "ImięNazwisko", "FormatWitaj" }
+                ["Imię"] = new string[] { "ImięNazwisko" },
+                ["Nazwisko"] = new string[] { "ImięNazwisko" },
+                ["ImięNazwisko"] = new string[] { "FormatWitaj" }
             };
-        private void NotyfikujZmianę([CallerMemberName] string? nazwaWłaściwości = null)
+        private void NotyfikujZmianę(
+            [CallerMemberName] string? nazwaWłaściwości = null,
+            HashSet<string> jużZałatwione = null
+            )
         {
+            if (jużZałatwione == null)
+                jużZałatwione = new();
             PropertyChanged?.Invoke(
                 this,
                 new PropertyChangedEventArgs(nazwaWłaściwości)
                 );
-            foreach(
-                string powiązanaWłaściwość
-                in
-                powiązaneWłaściwości[nazwaWłaściwości]
-                )
-                PropertyChanged?.Invoke(
-                    this,
-                    new PropertyChangedEventArgs(powiązanaWłaściwość)
-                    );
+            jużZałatwione.Add(nazwaWłaściwości);
+            if(powiązaneWłaściwości.ContainsKey(nazwaWłaściwości))
+                foreach(
+                    string powiązanaWłaściwość
+                    in
+                    powiązaneWłaściwości[nazwaWłaściwości]
+                    )
+                    if(jużZałatwione.Contains(powiązanaWłaściwość) == false)
+                        NotyfikujZmianę(powiązanaWłaściwość, jużZałatwione);
         }
 
         private string imię;
