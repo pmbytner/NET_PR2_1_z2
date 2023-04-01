@@ -20,12 +20,9 @@ namespace NET_PR2_1_z2
     /// </summary>
     public partial class ListaOsób : Window
     {
-        public ObservableCollection<Osoba> Osoby { get; } = new()
-        {
-            new() { Imię = "Adam", DataUrodzenia = DateTime.Now },
-            new() { Imię = "Maria" }
-        };
+        public ObservableCollection<Osoba> Osoby { get; } = new();
         ListBox lista;
+
         public ListaOsób()
         {
             DataContext = this;
@@ -35,10 +32,24 @@ namespace NET_PR2_1_z2
 
         private void Edytuj(object sender, RoutedEventArgs e)
         {
-            new WidokOsoby(
-                (Osoba)lista.SelectedItem
-                )
-                .Show();
+            Osoba wybrana = (Osoba)lista.SelectedItem;
+            if(wybrana != null)
+			    new WidokOsoby(wybrana)
+                    .Show();
         }
-    }
+
+		private void Dodaj(object sender, RoutedEventArgs e)
+		{
+            Osoba nowa = new Osoba();
+            Osoby.Add(nowa);
+            new WidokOsoby(nowa)
+                .Show();
+		}
+
+		private void Usuń(object sender, RoutedEventArgs e)
+		{
+			Osoba wybrana = (Osoba)lista.SelectedItem;
+            Osoby.Remove(wybrana);
+		}
+	}
 }
